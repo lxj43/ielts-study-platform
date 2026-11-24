@@ -1,0 +1,58 @@
+{% extends 'review_focus.html' %}
+{% block content %}
+<ol class="review-focus-steps" aria-label="复习阶段">
+  {% for stage in stages %}
+    <li class="{{ 'is-current' if loop.index0 == round_index else ('is-done' if loop.index0 < round_index else '') }}"{% if loop.index0 == round_index %} aria-current="step"{% endif %}>
+      <span aria-hidden="true">{{ '✓' if loop.index0 < round_index else loop.index }}</span>{{ categories[stage] }}
+    </li>
+  {% endfor %}
+</ol>
+
+<div class="review-session-progress">
+  <span>本轮 {{ round_passed }} / {{ total }} 词已通过</span>
+  <strong>本组已复习 {{ completed }} / {{ total }} 词</strong>
+  <progress value="{{ round_passed }}" max="{{ total }}" aria-label="本轮进度"></progress>
+</div>
+
+<section class="focus-card review-question" aria-labelledby="review-prompt">
+  <p class="challenge-instruction">
+    {{ '选择对应的中文释义' if q.category == 'en_zh' else ('根据释义拼写英文单词或短语' if q.category == 'spelling' else '选择对应的英文单词或短语') }}
+  </p>
+  <h1 id="review-prompt" class="challenge-prompt" lang="{{ 'en' if q.category == 'en_zh' else 'zh-CN' }}">{{ q.english if q.category == 'en_zh' else q.chinese }}</h1>
+  {% if state.feedback %}
+    <div class="study-feedback {{ 'correct' if state.feedback.correct else 'incorrect' }}" role="status">
+      <strong>{{ '回答正确' if state.feedback.correct else '本轮稍后重练' }}</strong>
+      <div class="feedback-word" lang="en">{{ q.english }} <span>{{ q.phonetic }}</span></div>
+      <p>{{ q.chinese }}</p>
+      {% if not state.feedback.correct %}
+        <p>你的答案：{{ state.feedback.submitted }}</p>
+        <p class="feedback-answer">正确答案：{{ q.answer }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+  <form method="post" class="study-form">
+    <input type="hidden" name="csrf" value="{{ session.csrf }}">
+    <input type="hidden" name="nonce" value="{{ state.nonce }}">
+    <input type="hidden" name="action" value="{{ 'continue' if state.feedback else 'answer' }}">
+    {% if not state.feedback %}
+      {% if q.category == 'spelling' %}
+        <label class="sr-only" for="review-answer">英文拼写</label>
+        <input id="review-answer" class="focus-spelling" name="answer" placeholder="输入英文拼写" required maxlength="200" autocomplete="off" autocapitalize="off" spellcheck="false" autofocus>
+        <small class="focus-hint">忽略大小写和首尾空格，短语需完整输入。</small>
+      {% else %}
+        <div class="study-options">
+          {% for option in q.options %}
+            <label class="study-option">
+              <input type="radio" name="answer" value="{{ option }}" required>
+              <span class="option-key" aria-hidden="true">{{ loop.index }}</span>
+              <span lang="{{ 'en' if q.category == 'zh_en' else 'zh-CN' }}">{{ option }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+    <button class="button wide check-answer">{{ '下一题' if state.feedback else '确认答案' }} <span aria-hidden="true">↵</span></button>
+  </form>
+</section>
+<p class="review-shortcut">{{ '1–4 或 ↑↓ 选择 · Enter 确认' if not state.feedback and q.options else '按 Enter 继续' if state.feedback else '按 Enter 确认' }}</p>
+{% endblock %}

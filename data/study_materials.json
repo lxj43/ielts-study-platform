@@ -1,0 +1,32 @@
+{
+  "academic": {
+    "example": "She is interested in academic research.",
+    "translation": "她对学术研究感兴趣。",
+    "example_source": "项目示例"
+  },
+  "scholarship": {
+    "example": "He received a scholarship for his final year.",
+    "translation": "他在最后一年获得了奖学金。",
+    "example_source": "项目示例"
+  },
+  "habitat": {
+    "example": "The wetland provides a habitat for many birds.",
+    "translation": "湿地为许多鸟类提供栖息地。",
+    "example_source": "项目示例"
+  },
+  "renewable": {
+    "example": "The town invests in renewable energy.",
+    "translation": "该镇投资可再生能源。",
+    "example_source": "项目示例"
+  },
+  "community": {
+    "example": "The community opened a new library.",
+    "translation": "社区开设了一家新图书馆。",
+    "example_source": "项目示例"
+  },
+  "nutrition": {
+    "example": "The class covers basic nutrition.",
+    "translation": "这门课介绍基础营养知识。",
+    "example_source": "项目示例"
+  }
+}

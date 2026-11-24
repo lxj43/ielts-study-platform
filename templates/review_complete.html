@@ -1,0 +1,36 @@
+{% extends 'review_focus.html' %}
+{% block title %}复习完成 · 词间{% endblock %}
+{% block exit_label %}返回复习{% endblock %}
+{% block content %}
+<section class="focus-card review-complete" aria-labelledby="review-complete-title">
+  <h1 id="review-complete-title">本组复习完成</h1>
+  <p>已通过 {{ result.word_count }} 个词的中译英、英译中和拼写。</p>
+  <dl class="review-metric-list">
+    <div><dt>本组完成</dt><dd>{{ result.word_count }} <small>词</small></dd></div>
+    <div><dt>首次正确率</dt><dd>{{ (result.correct / result.total * 100)|round(1) }}<small>%</small></dd></div>
+    <div><dt>错题重练</dt><dd>{{ result.mistakes }} <small>次</small></dd></div>
+  </dl>
+  <p class="review-complete-scores">
+    {% for key, score in result.scores.items() %}
+      <span>{{ categories[key] }} <strong>{{ score.correct }} / {{ score.total }}</strong></span>
+    {% endfor %}
+  </p>
+  <a class="button" href="{{ url_for('review') }}">返回复习统计 <span aria-hidden="true">→</span></a>
+</section>
+{% if result.details %}
+  <section class="review-corrections" aria-labelledby="review-corrections-title">
+    <h2 id="review-corrections-title">首次答错的题目</h2>
+    <div class="answer-list">
+      {% for q in result.details %}
+        <article class="answer-row">
+          <div>
+            <small class="muted">{{ categories[q.category] }}</small>
+            <h3>{{ q.english if q.category == 'en_zh' else q.chinese }}</h3>
+            <p>你的答案：{{ q.submitted }}<span class="correct-answer">正确答案：{{ q.answer }}</span></p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+{% endblock %}

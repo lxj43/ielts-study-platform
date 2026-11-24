@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}每日复习 · 词间{% endblock %}
+{% block content %}
+<div class="review-page">
+  <div class="review-heading">
+    <h1>每日复习</h1>
+    <span class="review-date">{{ today }}</span>
+  </div>
+
+  <div class="review-overview">
+    <section class="review-start" aria-labelledby="review-start-title">
+      <div class="review-start-top">
+        <div>
+          <h2 id="review-start-title">{{ '继续本次复习' if active else '开始一组复习' }}</h2>
+          <p>{{ '进度已保存，可以接着上次的题目继续。' if active else '优先练习尚未复习的已学词。答错的词会在本轮重练。' }}</p>
+        </div>
+        <span class="review-pool">{{ word_count }} 个已学词</span>
+      </div>
+      <ol class="review-rounds" aria-label="复习题型">
+        <li>中译英</li><li>英译中</li><li>单词拼写</li>
+      </ol>
+      {% if active %}
+        <div class="review-continue">
+          <span>{{ active.round }} · 已完成 {{ active.completed }} / {{ active.total }} 词</span>
+          <a class="button review-cta" href="{{ url_for('review_quiz', review_id=active.id) }}">继续复习 <span aria-hidden="true">→</span></a>
+        </div>
+      {% elif word_count %}
+        <form method="post" class="review-start-form">
+          <input type="hidden" name="csrf" value="{{ session.csrf }}">
+          <div class="review-quantity">
+            <label for="count">本次词数</label>
+            <input id="count" type="number" name="count" value="{{ [10, word_count]|min }}" min="1" max="{{ [100, word_count]|min }}" required>
+          </div>
+          <button class="button review-cta">开始复习 <span aria-hidden="true">→</span></button>
+        </form>
+      {% else %}
+        <p class="review-start-help">完成一批背诵后，才会有词可复习。</p>
+        <a class="button review-cta" href="{{ url_for('learn') }}">去背单词 <span aria-hidden="true">→</span></a>
+      {% endif %}
+    </section>
+
+    <section class="review-coverage panel" aria-labelledby="review-coverage-title">
+      <h2 id="review-coverage-title">复习覆盖</h2>
+      <p>已学词中，至少通过一次三轮复习的比例。</p>
+      <dl class="review-coverage-counts">
+        <div><dt>已复习</dt><dd>{{ stats.covered }} <small>词</small></dd></div>
+        <div><dt>待复习</dt><dd>{{ stats.waiting }} <small>词</small></dd></div>
+      </dl>
+      {% if word_count %}
+        <progress value="{{ stats.covered }}" max="{{ word_count }}" aria-label="已学词复习覆盖"></progress>
+      {% else %}
+        <progress value="0" max="1" aria-label="已学词复习覆盖"></progress>
+      {% endif %}
+      <div class="review-coverage-note">
+        <span>{{ stats.covered }} / {{ word_count }} 个已学词</span>
+        <strong>{{ (stats.covered / word_count * 100)|round|int if word_count else 0 }}%</strong>
+      </div>
+    </section>
+  </div>
+
+  <div class="review-activity">
+    <section class="panel review-metrics" aria-labelledby="review-metrics-title">
+      <h2 id="review-metrics-title">复习统计</h2>
+      <dl class="review-metric-list">
+        <div><dt>今日已复习</dt><dd>{{ stats.today }} <small>词</small></dd></div>
+        <div><dt>累计复习</dt><dd>{{ stats.total }} <small>词次</small></dd></div>
+        <div><dt>日均复习</dt><dd>{{ '%.1f'|format(stats.average) }} <small>词 / 天</small></dd></div>
+      </dl>
+      <p>每词三轮都答对后计入。同一个词每天计一次，跨天可重复计入累计。日均从首次复习算起，包含没有复习的日子。</p>
+    </section>
+
+    <section class="panel review-trend" aria-labelledby="review-trend-title">
+      <div class="review-trend-heading"><h2 id="review-trend-title">近 7 天</h2><span>复习词数</span></div>
+      <ol class="review-bars">
+        {% for day, count in stats.week %}
+        <li class="{{ 'is-today' if loop.last else '' }}">
+          <span class="review-bar-number">{{ count }}</span>
+          <div class="review-bar-track" aria-hidden="true"><div class="review-bar" style="--bar-height:{{ (100 * count / stats.peak)|round(1) }}%"></div></div>
+          <span class="review-bar-date">{{ '今天' if loop.last else day }}</span>
+        </li>
+        {% endfor %}
+      </ol>
+    </section>
+  </div>
+
+  <section class="review-history" aria-labelledby="review-history-title">
+    <div class="section-heading"><h2 id="review-history-title">复习记录</h2><span class="muted">最近 20 次</span></div>
+    <div class="records">
+      {% for row in history %}
+        <a class="record review-record" href="{{ url_for('review_quiz', review_id=row.id) }}">
+          <span class="module-icon" aria-hidden="true">↻</span>
+          <div><strong>{{ '复习练习' if row.guided else '复习答卷' }} · {{ row.word_count }} 词</strong><small>{{ row.timestamp[:16]|replace('T', ' ') }}</small></div>
+          <span class="status {{ 'done' if row.finished else '' }}">{{ '查看结果' if row.finished else '继续复习' }} <span aria-hidden="true">→</span></span>
+        </a>
+      {% else %}
+        <div class="empty">还没有复习记录。</div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

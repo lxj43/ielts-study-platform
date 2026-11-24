@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">YOUR RESULTS</span><h1>{{ title }}</h1><p>每一道错题，都是下一次进步的起点。</p></div><a class="button secondary" href="{{ url_for('battle_detail',battle_id=battle.id) if battle else url_for('review') }}">{{ '返回对战' if battle else '返回复习' }} ↗</a></div>
+<section class="result-hero"><div><span class="eyebrow">TOTAL ACCURACY</span><b>{{ (result.correct / result.total * 100)|round(1) if result.total else 0 }}<small>%</small></b><p>共 {{ result.total }} 题，答对 {{ result.correct }} 题</p></div><h2>{{ '记得很扎实，继续保持！' if result.total and result.correct / result.total >= 0.8 else '再巩固一次，你会记得更牢。' }}</h2></section>
+<div class="score-grid">{% for key,score in result.scores.items() %}<div class="panel"><span class="muted">{{ categories[key] }}正确率</span><h2>{{ (score.correct / score.total * 100)|round(1) if score.total else 0 }}%</h2><small class="muted">{{ score.correct }} / {{ score.total }} 题正确</small></div>{% endfor %}</div>
+<h2>答题解析</h2><div class="answer-list">{% for q in result.details %}<article class="answer-row"><span class="answer-mark {{ 'right' if q.correct else 'wrong' }}">{{ '✓' if q.correct else '×' }}</span><div><small class="muted">{{ loop.index }} · {{ categories[q.category] }}</small><h3>{{ q.english if q.category == 'en_zh' else q.chinese }}</h3><p>你的答案：{{ q.submitted or '未作答' }}{% if not q.correct %}<span class="correct-answer">正确答案：{{ q.answer }}</span>{% endif %}</p></div></article>{% endfor %}</div>
+{% endblock %}

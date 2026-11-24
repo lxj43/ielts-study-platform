@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">STUDY INBOX</span><h1>账户消息</h1><p>学习搭子的邀请、考试成绩和积分结果，都在这里。</p></div><form method="post"><input type="hidden" name="csrf" value="{{ session.csrf }}"><button class="button secondary">全部标为已读 ✓</button></form></div>
+<div class="records">{% for message in messages %}<a class="record message {{ 'unread' if not message.seen else '' }}" href="{{ url_for('battle_detail',battle_id=message.battle_id) }}"><span class="module-icon">✉</span><div><strong>{{ message.message }}</strong><small>{{ message.created_at[:16]|replace('T',' ') }} · {{ '未读' if not message.seen else '已读' }}</small></div><span>↗</span></a>{% else %}<div class="empty">暂无消息。发起一场对战，让共学开始互动。</div>{% endfor %}</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+[
+  {"number":1,"title":"校园与学习","words":[["academic","学术的","/ˌækəˈdemɪk/"],["curriculum","课程","/kəˈrɪkjələm/"],["assignment","作业","/əˈsaɪnmənt/"],["scholarship","奖学金","/ˈskɒləʃɪp/"],["lecture","讲座","/ˈlektʃə/"],["research","研究","/rɪˈsɜːtʃ/"]]},
+  {"number":2,"title":"环境与自然","words":[["sustainable","可持续的","/səˈsteɪnəbl/"],["biodiversity","生物多样性","/ˌbaɪəʊdaɪˈvɜːsəti/"],["conservation","保护","/ˌkɒnsəˈveɪʃn/"],["pollution","污染","/pəˈluːʃn/"],["habitat","栖息地","/ˈhæbɪtæt/"],["renewable","可再生的","/rɪˈnjuːəbl/"]]},
+  {"number":3,"title":"社会与发展","words":[["infrastructure","基础设施","/ˈɪnfrəstrʌktʃə/"],["community","社区","/kəˈmjuːnəti/"],["innovation","创新","/ˌɪnəˈveɪʃn/"],["employment","就业","/ɪmˈplɔɪmənt/"],["urban","城市的","/ˈɜːbən/"],["transport","交通运输","/ˈtrænspɔːt/"]]},
+  {"number":4,"title":"健康与生活","words":[["nutrition","营养","/njuˈtrɪʃn/"],["balanced","均衡的","/ˈbælənst/"],["physical","身体的","/ˈfɪzɪkl/"],["mental","心理的","/ˈmentl/"],["prevention","预防","/prɪˈvenʃn/"],["recovery","康复","/rɪˈkʌvəri/"]]}
+]

@@ -1,0 +1,151 @@
+{
+  "key": "sample-v1",
+  "title": "公开样例词库",
+  "page_basis": "按主题分页",
+  "pages": [
+    {
+      "number": 1,
+      "title": "校园与学习",
+      "words": [
+        {
+          "english": "academic",
+          "chinese": "学术的",
+          "phonetic": "/ˌækəˈdemɪk/"
+        },
+        {
+          "english": "curriculum",
+          "chinese": "课程",
+          "phonetic": "/kəˈrɪkjələm/"
+        },
+        {
+          "english": "assignment",
+          "chinese": "作业",
+          "phonetic": "/əˈsaɪnmənt/"
+        },
+        {
+          "english": "scholarship",
+          "chinese": "奖学金",
+          "phonetic": "/ˈskɒləʃɪp/"
+        },
+        {
+          "english": "lecture",
+          "chinese": "讲座",
+          "phonetic": "/ˈlektʃə/"
+        },
+        {
+          "english": "research",
+          "chinese": "研究",
+          "phonetic": "/rɪˈsɜːtʃ/"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "环境与自然",
+      "words": [
+        {
+          "english": "sustainable",
+          "chinese": "可持续的",
+          "phonetic": "/səˈsteɪnəbl/"
+        },
+        {
+          "english": "biodiversity",
+          "chinese": "生物多样性",
+          "phonetic": "/ˌbaɪəʊdaɪˈvɜːsəti/"
+        },
+        {
+          "english": "conservation",
+          "chinese": "保护",
+          "phonetic": "/ˌkɒnsəˈveɪʃn/"
+        },
+        {
+          "english": "pollution",
+          "chinese": "污染",
+          "phonetic": "/pəˈluːʃn/"
+        },
+        {
+          "english": "habitat",
+          "chinese": "栖息地",
+          "phonetic": "/ˈhæbɪtæt/"
+        },
+        {
+          "english": "renewable",
+          "chinese": "可再生的",
+          "phonetic": "/rɪˈnjuːəbl/"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "社会与发展",
+      "words": [
+        {
+          "english": "infrastructure",
+          "chinese": "基础设施",
+          "phonetic": "/ˈɪnfrəstrʌktʃə/"
+        },
+        {
+          "english": "community",
+          "chinese": "社区",
+          "phonetic": "/kəˈmjuːnəti/"
+        },
+        {
+          "english": "innovation",
+          "chinese": "创新",
+          "phonetic": "/ˌɪnəˈveɪʃn/"
+        },
+        {
+          "english": "employment",
+          "chinese": "就业",
+          "phonetic": "/ɪmˈplɔɪmənt/"
+        },
+        {
+          "english": "urban",
+          "chinese": "城市的",
+          "phonetic": "/ˈɜːbən/"
+        },
+        {
+          "english": "transport",
+          "chinese": "交通运输",
+          "phonetic": "/ˈtrænspɔːt/"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "title": "健康与生活",
+      "words": [
+        {
+          "english": "nutrition",
+          "chinese": "营养",
+          "phonetic": "/njuˈtrɪʃn/"
+        },
+        {
+          "english": "balanced",
+          "chinese": "均衡的",
+          "phonetic": "/ˈbælənst/"
+        },
+        {
+          "english": "physical",
+          "chinese": "身体的",
+          "phonetic": "/ˈfɪzɪkl/"
+        },
+        {
+          "english": "mental",
+          "chinese": "心理的",
+          "phonetic": "/ˈmentl/"
+        },
+        {
+          "english": "prevention",
+          "chinese": "预防",
+          "phonetic": "/prɪˈvenʃn/"
+        },
+        {
+          "english": "recovery",
+          "chinese": "康复",
+          "phonetic": "/rɪˈkʌvəri/"
+        }
+      ]
+    }
+  ]
+}

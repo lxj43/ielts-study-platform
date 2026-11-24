@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17362d">
+  <title>{% block title %}专注复习 · 词间{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}">
+  <script src="{{ url_for('static', filename='study.js') }}" defer></script>
+</head>
+<body class="focus-body review-focus">
+  <header class="review-focus-header">
+    <a href="{{ url_for('review') }}">← {% block exit_label %}暂停并退出{% endblock %}</a>
+    <span class="review-focus-title">每日复习</span>
+    <span class="review-focus-saved">进度自动保存</span>
+  </header>
+  <main class="focus-main review-focus-main">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

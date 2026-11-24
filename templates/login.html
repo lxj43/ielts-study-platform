@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="login-layout">
+  <section class="login-story"><div class="brand"><span class="brand-icon">词</span><span>词间<small>IELTS STUDY CLUB</small></span></div><span class="eyebrow">TWO LEARNERS. ONE JOURNEY.</span><h1>把每个单词，<br>变成前进的力量<span>。</span></h1><p>一页一页地积累，一次一次地巩固。<br>和学习搭子一起，走向你的 IELTS 目标。</p><div class="word-art"><span>learn.</span><span>review.</span><span>grow together.</span><i>✳</i></div><small>背诵记忆 / 每日复习 / 考试对战</small></section>
+  <section class="login-card"><span class="eyebrow">WELCOME BACK</span><h2>今天，谁来学习？</h2><p class="muted">选择你的账户，继续自己的学习旅程。</p>{% for uid,name in users %}<form method="post"><input type="hidden" name="csrf" value="{{ session.csrf }}"><input type="hidden" name="user_id" value="{{ uid }}"><button class="user-choice"><span class="avatar {{ 'peach' if uid == 2 else '' }}">{{ name[0] }}</span><span><strong>{{ name }}</strong><small>进入我的学习空间</small></span><span class="arrow">↗</span></button></form>{% endfor %}<div class="login-hint">无需密码 · 学习进度分别保存<br>本地共学账户，请在可信设备和网络中使用。</div></section>
+</div>
+{% endblock %}

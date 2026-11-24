@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-heading"><div><span class="eyebrow">FOCUS TIME</span><h1>{{ title }}</h1><p>{{ subtitle }}</p></div><span class="pill">共 {{ questions|length }} 题</span></div>
+<div class="notice">中译英、英译中采用选择题；拼写根据中文输入英文。所有题均需作答，交卷后不可修改。拼写忽略大小写和首尾空格。选择题可按 1–4 或 ↑↓ 选项，按 Enter 确认并前往下一题。</div>
+<form method="post" class="quiz-form"><input type="hidden" name="csrf" value="{{ session.csrf }}">
+{% for q in questions %}{% set index=loop.index0 %}
+<section class="panel question"><div class="question-top"><span class="eyebrow">QUESTION {{ '%02d'|format(loop.index) }}</span><span class="status">{{ categories[q.category] }}</span></div><h2>{{ q.english if q.category == 'en_zh' else q.chinese }}</h2><p class="muted">{{ '选择对应的中文释义' if q.category == 'en_zh' else ('根据中文释义，拼写英文单词' if q.category == 'spelling' else '选择对应的英文单词') }}</p>{% if q.category == 'spelling' %}<input class="spelling-input" name="answer_{{ index }}" aria-label="第 {{ loop.index }} 题英文拼写" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入英文单词…" required>{% else %}<div class="options">{% for option in q.options %}<label class="option"><input type="radio" name="answer_{{ index }}" value="{{ option }}" required><span class="option-key" aria-hidden="true">{{ loop.index }}</span><span>{{ option }}</span></label>{% endfor %}</div>{% endif %}</section>
+{% endfor %}<div class="submit-bar"><span class="muted">检查一下答案，再给努力一个结果。</span><button class="button">提交答卷 ✓</button></div></form>
+{% endblock %}
