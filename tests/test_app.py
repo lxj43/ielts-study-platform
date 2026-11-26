@@ -61,6 +61,18 @@ class PlatformTest(unittest.TestCase):
             answers[f'answer_{i}'] = answer
         return answers
 
+    def test_desktop_review_link_and_health(self):
+        client = self.app.test_client()
+        self.assertEqual(client.get('/review').location, '/login?next=review')
+        client.get('/login?next=review')
+        response = self.post(client, '/login?next=review', {'user_id': '1'})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.request.path, '/review')
+        with patch.dict('os.environ', {'IELTS_DESKTOP_SESSION': 'test-launch-token'}):
+            headers = {'X-IELTS-Desktop': 'test-launch-token'}
+            self.assertEqual(client.get('/_desktop/health').status_code, 404)
+            self.assertEqual(client.get('/_desktop/health', headers=headers).status_code, 204)
+
     def test_pages_render_and_auth(self):
         self.assertEqual(self.app.test_client().get('/').status_code, 302)
         for path in ['/', '/learn', '/learn/1', '/review', '/battles', '/messages']:

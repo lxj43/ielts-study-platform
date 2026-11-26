@@ -59,12 +59,15 @@ def create_app(test_config=None):
         @wraps(view)
         def wrapped(*args, **kwargs):
             if not g.user:
-                return redirect(url_for('login'))
+                destination = 'review' if request.endpoint == 'review' else None
+                return redirect(url_for('login', next=destination))
             return view(*args, **kwargs)
         return wrapped
 
     @app.before_request
     def load_user():
+        if request.endpoint == 'desktop_health':
+            return
         g.user = db().execute('SELECT * FROM users WHERE id=?', (session.get('user_id'),)).fetchone()
         session.setdefault('csrf', secrets.token_hex(24))
         if request.method == 'POST' and not secrets.compare_digest(request.form.get('csrf', ''), session['csrf']):
@@ -128,8 +131,16 @@ def create_app(test_config=None):
             uid = int(request.form['user_id'])
             session.clear()
             session.update(user_id=uid, csrf=secrets.token_hex(24))
-            return redirect(url_for('dashboard'))
+            destination = 'review' if request.args.get('next') == 'review' else 'dashboard'
+            return redirect(url_for(destination))
         return render_template('login.html', users=USERS)
+
+    @app.get('/_desktop/health')
+    def desktop_health():
+        token = os.environ.get('IELTS_DESKTOP_SESSION')
+        if not token or not secrets.compare_digest(request.headers.get('X-IELTS-Desktop', '').encode(), token.encode()):
+            abort(404)
+        return '', 204
 
     @app.post('/logout')
     def logout():
