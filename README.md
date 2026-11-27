@@ -54,6 +54,26 @@ python app.py
 
 打开 [词间本地页面](http://127.0.0.1:5000)，选择一个学员。在「单词背诵」选一个主题页，完成一批后就可以进入「每日复习」。账户通过页面直接选择，适合在可信设备上使用。
 
+## 实际使用截图
+
+### 每日复习
+
+用样例账号完成几组复习后，可以查看今日、累计、日均和近 7 天的复习词数。
+
+![每日复习](docs/screenshots/daily-review.png)
+
+### 键盘答题
+
+开始一组复习后，按数字键选择答案，页面会显示当前轮次和本组进度。
+
+![键盘答题](docs/screenshots/review-practice.png)
+
+### macOS 置顶浮窗
+
+从 Mac 菜单栏打开置顶浮窗，在小窗口里开始或继续复习。
+
+<img src="docs/screenshots/macos-floating.png" width="420" alt="词间 macOS 置顶复习浮窗">
+
 ## 一次学习如何走完整个流程
 
 ```mermaid
